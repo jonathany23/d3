@@ -2,32 +2,161 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Filtrado de datos</title>
+    <title>Salarios por Lenguaje De Programación</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
     <link rel="stylesheet" type="text/css" href="styles.css"/>
     <link rel="stylesheet" type="text/css" href="style.css"/>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
     <script src="https://d3js.org/d3.v4.min.js"></script>
 </head>
 
 <body>
+  <!--Titulo principal de la pagina-->
+  <header>
+    <h1 class="main-title">Mediana de Salarios Anuales por Lenguaje de Programación</h1>
+  </header>
   
-  <div class="control-group">
-    <p>Filtrar</p>
-    <select id="cat-filter" name="select" onchange="filterLang(this)">
-      <option value="">Seleccionar...</option> 
-    </select>
-      
-    <button onclick="sort(compareByGasto)">
-        Ordenar por Salario
-    </button>
-    <button onclick="sort(compareBycategoria)">
-        Ordenar por Lenguaje
-    </button>
-    <button onclick="sort()">
-        Limpiar
-    </button>
+  <!--Contenedor del contenido de toda la pagina-->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2">
+        <!--Select o comobobox para facilitar las seleccion y filtrado por lenguaje-->
+        <h3>Filtrar</h3>
+        <select id="cat-filter" name="select" onchange="filterLang(this)">
+          <option value="">Seleccionar...</option> 
+        </select>
+      </div>
+      <div class="col-md-4">
+        <!--Botones de ordenamiento-->
+        <h3>Ordenar</h3>  
+        <button onclick="sort(compareByGasto)">
+            Ordenar por Salario
+        </button>
+        <button onclick="sort(compareBycategoria)">
+            Ordenar por Lenguaje
+        </button>
+        <button onclick="sort()">
+            Limpiar
+        </button>
+      </div>
+    </div>
+    
+    <!--Descripcion de los datos-->
+    <div class="graph col-xs-6"></div>
+    <div class="txt-content col-xs-6">
+      <p>Para el siguiente trabajo se tomo un conjunto de datos provenientes de una encuesta realizada por <a href="https://sg.com.mx/revista/53/estudio-salarios-sg-2016#.WQjkr9o18_4">Software Guru</a>  acerca de los salarios que perciben los desarrolladores en diferentes áreas como país de procedencia, genero, plataforma, lenguaje de programación, nivel de educación, cargo que ocupa dentro de la empresa, etc.</p>
+      <p>En este caso se tomo los datos de los salario de acuerdo al lenguaje de programación para la visualización y comparación de sus atributos.</p>
+      <!--Tabla de referencia-->
+      <table class="table table-striped tbl-calif">
+				<thead>
+					<tr>
+					    <th>Lenguaje</th>
+					    <th>Mediana</th> 
+				  	</tr>
+				</thead>
+				<tbody>
+					<tr>
+					    <td>Elixir</td>
+					    <td>45000</td>
+					  </tr>
+					  <tr>
+					    <td>Go</td>
+					    <td>37250</td> 
+					  </tr>
+					  <tr>
+					    <td>Groovy</td>
+					    <td>36500</td> 
+					  </tr>
+					  <tr>
+					    <td>Bash</td>
+					    <td>35500</td> 
+					  </tr>
+					  <tr>
+					    <td>R</td>
+					    <td>32271</td> 
+					  </tr>
+					  <tr>
+					    <td>Objective-C</td>
+					    <td>32000</td> 
+					  </tr>
+					  <tr>
+					    <td>ABAP</td>
+					    <td>30500</td> 
+					  </tr>
+					  <tr>
+					    <td>Ruby</td>
+					    <td>30000</td> 
+					  </tr>
+					  <tr>
+					    <td>Typescript</td>
+					    <td>30000</td> 
+					  </tr>
+					  <tr>
+					    <td>Javascript</td>
+					    <td>30000</td> 
+					  </tr>
+					  <tr>
+					    <td>Python</td>
+					    <td>30000</td> 
+					  </tr>
+					  <tr>
+					    <td>Java</td>
+					    <td>29537</td> 
+					  </tr>
+					  <tr>
+					    <td>Cobol</td>
+					    <td>29500</td> 
+					  </tr>
+					  <tr>
+					    <td>Perl</td>
+					    <td>28500</td> 
+					  </tr>
+					  <tr>
+					    <td>Scala</td>
+					    <td>28500</td> 
+					  </tr>
+					  <tr>
+					    <td>PLSQL</td>
+					    <td>28000</td> 
+					  </tr>
+					  <tr>
+					    <td>C#</td>
+					    <td>28000</td> 
+					  </tr>
+					  <tr>
+					    <td>Switft</td>
+					    <td>26500</td> 
+					  </tr>
+					  <tr>
+					    <td>VB</td>
+					    <td>25900</td> 
+					  </tr>
+					  <tr>
+					    <td>C</td>
+					    <td>25000</td> 
+					  </tr>
+					  <tr>
+					    <td>PHP</td>
+					    <td>20000</td> 
+					  </tr>
+					  <tr>
+					    <td>Delphi</td>
+					    <td>17898</td> 
+					  </tr>
+				</tbody>
+			</table>
+    </div>
   </div>
 
 <script type="text/javascript">
+    //Array con los datos que se visualizaran
     var data = [ 
         {cantidad: 45000, categoria: "Elixir"},
         {cantidad: 37250, categoria: "Go"},
@@ -53,7 +182,14 @@
         {cantidad: 17898, categoria: "Delphi"}
     ];
     
-    //var max = 0;
+    //Definir una escala lineal para usar como fondo de las barras
+    //se usaran de fondo en forma de gradiente
+    var colorScale = d3.scaleLinear()
+        .domain([17898, 45000])
+        .range(["#add8e6", "blue"]); // <- B
+    
+    //Carga los valores iniciales al select (combobox)
+    //de acuerdo al array de datos
     function setDefaultValues(data){
       data.forEach(function(item){
         var x = document.getElementById("cat-filter");
@@ -64,72 +200,100 @@
       });
     }
     
+    //funcion de d3 para extraer el valor maximo de arreglo de datos
     function getMax(data){
       max = d3.max(data, function (d){ return d.cantidad});
       console.log("max: "+max);
       return max;
     }
     
+    //Funcion para calcular el porcentaje de los valores del arreglo de datos
+    //debido a que se trata valores en miles de dolares se usa el porcentaje
     function calcPercentage(cantidad){
-      return ((cantidad * 100)/max)*2;
+      return ((cantidad * 100)/max)*4;
     }
-    function render(data, categoria) {
+    
+    //funcion principal de usa las caracteristicas de d3 para graficar
+    function render(data, categoria, comparator) {
       
       max = getMax(data);
 			
-			var divs = d3.select("body").selectAll("div.h-bar") // <-B
+			//Se contenedor de las graficas, un div con clase row3
+			var divs = d3.select(".graph").selectAll("div.h-bar") // <-B
                 .data(data)
 			.enter()
 			      .append("div")
-			        .attr("class", "row");
+			        .attr("class", "row3");
 			 
+			 //Se agrega div que contendra la etiqueta de la barra
 			 divs.append("div")
-                .attr("class", "label")
+                .attr("class", "label3")
 			.append("span");
 			
+			//Se agrega div que contendra la barra y el monto
 			 divs.append("div")
                 .attr("class", "h-bar")
 			.append("span");
 			        
-        d3.select("body").selectAll("div.h-bar") // <-C
+        //Limpiar el DOM de elementos que ya no se estan usando
+        d3.select(".graph").selectAll("div.h-bar") // <-C
                 .data(data)
             .exit().remove();
             
         
-        d3.select("body").selectAll("div.label")
+        //Agregar la etiqueta al grafico
+        d3.select(".graph").selectAll("div.label3")
         .data(data)
-        .attr("class", "label")
+        .attr("class", "label3")
         .select("span")
         .text(function(d){
           return d.categoria;
         });
             
-        d3.select("body").selectAll("div.h-bar") // <-D
+        //Agregar la barra una por cada dato
+        d3.select(".graph").selectAll("div.h-bar") // <-D
                 .data(data)
             .attr("class", "h-bar")
+            //el tamaño se calcula de acuerdo a un porcentaje
             .style("width", function (d) {
               size = calcPercentage(d.cantidad);
                 return (size) + "px";}
             )
+            //El calor de la barra sigue una escala lineal
+            //mientras mayor salario mas intenso es el color
+            .style("background-color", function(d){
+                    return colorScale(d.cantidad); // <- E
+                })
+            //Agreagar a la barra el texto del salio medio
             .select("span")
                 .text(function (d) {
                     return "$ "+d.cantidad;
                 });
                 
-        d3.select("body").selectAll("div.h-bar")
+        //Seccion usada para realizar el filtrado por lenguaje de progamacion
+        d3.select(".graph").selectAll("div.h-bar")
                 .filter(function (d, i) { // <-E
                     return d.categoria == categoria;
                 })
                 .classed("selected", true);
+        
+        //Realizar la Ordenacion de acuerdo a los parametros ingresados        
+        if(comparator)
+            d3.select(".graph")
+                .selectAll("div.row3") 
+                .sort(comparator);
     }
     
+    //Ordenacion por salario
     var compareByGasto = function (a, b) {  // <-F
         return a.cantidad < b.cantidad?-1:1;
     };
+    //Ordenacion alfabeticamente de acuerdo al lenguaje de programacion
     var compareBycategoria = function (a, b) {  // <-G
         return d3.ascending(a.categoria, b.categoria);
     };
     
+    //Funcion inicial que ga inicio al proceso
     start(data);
     //render(data);
     
@@ -142,69 +306,19 @@
         render(data, categoria);
     }*/
     
+    //Funcion para realizar el filtrado
     function filterLang(option){
       console.log("[ filterLang ] option: "+option.value);
-      render(data, option.value);
+      render(data, option.value, undefined);
     }
     
+    //Funcion para realizar la ordenacion
     function sort(comparator) {
         //render(data, comparator);
-        renderB(data, comparator);
-    }
-    
-    function renderB(data, comparator) {
-      
-      max = getMax(data);
-			
-			var divs = d3.select("body").selectAll("div.h-bar") // <-B
-                .data(data)
-			.enter()
-			      .append("div")
-			        .attr("class", "row");
-			 
-			 divs.append("div")
-                .attr("class", "label")
-			.append("span");
-			
-			 divs.append("div")
-                .attr("class", "h-bar")
-			.append("span");
-			        
-        d3.select("body").selectAll("div.h-bar") // <-C
-                .data(data)
-            .exit().remove();
-            
-        
-        d3.select("body").selectAll("div.label")
-        .data(data)
-        .attr("class", "label")
-        .select("span")
-        .text(function(d){
-          return d.categoria;
-        });
-            
-        d3.select("body").selectAll("div.h-bar") // <-D
-                .data(data)
-            .attr("class", "h-bar")
-            .style("width", function (d) {
-              size = calcPercentage(d.cantidad);
-                return (size) + "px";}
-            )
-            .select("span")
-                .text(function (d) {
-                    return "$ "+d.cantidad;
-                });
-                
-        if(comparator)
-            d3.select("body")
-                .selectAll("div.row") 
-                .sort(comparator);
-                
-        /*d3.select("body").selectAll("div.h-bar")
-                .filter(function (d, i) {
-                    //return d.categoria == categoria;
-                })
-                .classed("selected", true);*/
+        console.log("comparator: "+JSON.stringify(comparator)+" "+comparator);
+        var e = document.getElementById("cat-filter");
+        var strCat = e.options[e.selectedIndex].value;
+        render(data, strCat, comparator);
     }
 </script>
 
