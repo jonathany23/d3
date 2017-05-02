@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Filtrado de datos</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+
+<body>
+  
+  <div class="control-group">
+    <p>Filtrar</p>
+    <select id="cat-filter" name="select" onchange="filterLang(this)">
+      <option value="">Seleccionar...</option> 
+    </select>
+      
+    <button onclick="sort(compareByGasto)">
+        Ordenar por Salario
+    </button>
+    <button onclick="sort(compareBycategoria)">
+        Ordenar por Lenguaje
+    </button>
+    <button onclick="sort()">
+        Limpiar
+    </button>
+  </div>
+
+<script type="text/javascript">
+    var data = [ 
+        {cantidad: 45000, categoria: "Elixir"},
+        {cantidad: 37250, categoria: "Go"},
+        {cantidad: 36500, categoria: "Groovy"},
+        {cantidad: 35500, categoria: "Bash"},
+        {cantidad: 32271, categoria: "R"},
+        {cantidad: 32000, categoria: "Objective-C"},
+        {cantidad: 30500, categoria: "ABAP"},
+        {cantidad: 30000, categoria: "Ruby"},
+        {cantidad: 30000, categoria: "Typescript"},
+        {cantidad: 30000, categoria: "Javascript"},
+        {cantidad: 30000, categoria: "Python"},
+        {cantidad: 29537, categoria: "Java"},
+        {cantidad: 29500, categoria: "Cobol"},
+        {cantidad: 28500, categoria: "Perl"},
+        {cantidad: 28500, categoria: "Scala"},
+        {cantidad: 28000, categoria: "PLSQL"},
+        {cantidad: 28000, categoria: "C#"},
+        {cantidad: 26500, categoria: "Switft"},
+        {cantidad: 25900, categoria: "VB"},
+        {cantidad: 25000, categoria: "C"},
+        {cantidad: 20000, categoria: "PHP"},
+        {cantidad: 17898, categoria: "Delphi"}
+    ];
+    
+    //var max = 0;
+    function setDefaultValues(data){
+      data.forEach(function(item){
+        var x = document.getElementById("cat-filter");
+        var option = document.createElement("option");
+        option.text = item.categoria;
+        option.value = item.categoria;
+        x.add(option);
+      });
+    }
+    
+    function getMax(data){
+      max = d3.max(data, function (d){ return d.cantidad});
+      console.log("max: "+max);
+      return max;
+    }
+    
+    function calcPercentage(cantidad){
+      return ((cantidad * 100)/max)*2;
+    }
+    function render(data, categoria) {
+      
+      max = getMax(data);
+			
+			var divs = d3.select("body").selectAll("div.h-bar") // <-B
+                .data(data)
+			.enter()
+			      .append("div")
+			        .attr("class", "row");
+			 
+			 divs.append("div")
+                .attr("class", "label")
+			.append("span");
+			
+			 divs.append("div")
+                .attr("class", "h-bar")
+			.append("span");
+			        
+        d3.select("body").selectAll("div.h-bar") // <-C
+                .data(data)
+            .exit().remove();
+            
+        
+        d3.select("body").selectAll("div.label")
+        .data(data)
+        .attr("class", "label")
+        .select("span")
+        .text(function(d){
+          return d.categoria;
+        });
+            
+        d3.select("body").selectAll("div.h-bar") // <-D
+                .data(data)
+            .attr("class", "h-bar")
+            .style("width", function (d) {
+              size = calcPercentage(d.cantidad);
+                return (size) + "px";}
+            )
+            .select("span")
+                .text(function (d) {
+                    return "$ "+d.cantidad;
+                });
+                
+        d3.select("body").selectAll("div.h-bar")
+                .filter(function (d, i) { // <-E
+                    return d.categoria == categoria;
+                })
+                .classed("selected", true);
+    }
+    
+    var compareByGasto = function (a, b) {  // <-F
+        return a.cantidad < b.cantidad?-1:1;
+    };
+    var compareBycategoria = function (a, b) {  // <-G
+        return d3.ascending(a.categoria, b.categoria);
+    };
+    
+    start(data);
+    //render(data);
+    
+    function start(data) {
+      setDefaultValues(data);
+      render(data);
+    }
+    
+    /*function select(categoria) {
+        render(data, categoria);
+    }*/
+    
+    function filterLang(option){
+      console.log("[ filterLang ] option: "+option.value);
+      render(data, option.value);
+    }
+    
+    function sort(comparator) {
+        //render(data, comparator);
+        renderB(data, comparator);
+    }
+    
+    function renderB(data, comparator) {
+      
+      max = getMax(data);
+			
+			var divs = d3.select("body").selectAll("div.h-bar") // <-B
+                .data(data)
+			.enter()
+			      .append("div")
+			        .attr("class", "row");
+			 
+			 divs.append("div")
+                .attr("class", "label")
+			.append("span");
+			
+			 divs.append("div")
+                .attr("class", "h-bar")
+			.append("span");
+			        
+        d3.select("body").selectAll("div.h-bar") // <-C
+                .data(data)
+            .exit().remove();
+            
+        
+        d3.select("body").selectAll("div.label")
+        .data(data)
+        .attr("class", "label")
+        .select("span")
+        .text(function(d){
+          return d.categoria;
+        });
+            
+        d3.select("body").selectAll("div.h-bar") // <-D
+                .data(data)
+            .attr("class", "h-bar")
+            .style("width", function (d) {
+              size = calcPercentage(d.cantidad);
+                return (size) + "px";}
+            )
+            .select("span")
+                .text(function (d) {
+                    return "$ "+d.cantidad;
+                });
+                
+        if(comparator)
+            d3.select("body")
+                .selectAll("div.row") 
+                .sort(comparator);
+                
+        /*d3.select("body").selectAll("div.h-bar")
+                .filter(function (d, i) {
+                    //return d.categoria == categoria;
+                })
+                .classed("selected", true);*/
+    }
+</script>
+
+</body>
+
+</html>
