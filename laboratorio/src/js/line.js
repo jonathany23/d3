@@ -111,6 +111,8 @@ function updateData() {
             .duration(750)
             .call(yAxis);
 
+        change(randomData());
+
     });
 
 }

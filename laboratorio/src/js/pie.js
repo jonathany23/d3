@@ -42,12 +42,13 @@ var color;
 		return d.date;
 	});*/
 
-	//console.log(arrDate);
+	console.log(arrDate);
 
 	function randomData (){
 		color = d3.scale.ordinal()
 		.domain(arrDate)
-		.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+		//.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+		.range(["#f5967f", "#e6243c"]);
 
 		var labels = color.domain();
 		return labels.map(function(label){
@@ -80,6 +81,7 @@ d3.select(".randomize")
 
 
 function change(data) {
+	console.log(data);
 
 	/* ------- PIE SLICES -------*/
 	var slice = svg.select(".slices").selectAll("path.slice")

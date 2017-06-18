@@ -6,7 +6,7 @@ var width = 400,
 
 //Map projection
 var projection = d3.geo.mercator()
-    .scale(410.20355310639263)
+    .scale(400.20355310639263)
     .center([-63.115436566301206,-26.26930158426038]) //projection center
     .translate([width/2,height/2]) //translate to center the map in view
 
@@ -74,7 +74,6 @@ function showTooltip(d) {
   countryName = d.properties.geounit;
   console.log(countryName);
   updateData();
-  change(randomData());
   tooltip.style("display","block")
       .text(d.properties.geounit);
 }
