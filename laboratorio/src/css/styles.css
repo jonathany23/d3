@@ -1,0 +1,21 @@
+body{
+	background-color: #f1f1f1;
+}
+
+.main-content {
+    width: 80%;
+    margin: auto;
+}
+
+.d3-graph {
+    display: inline-block;
+    background: #fff;
+    border-radius: 0.2rem;
+    box-shadow: 0.1px 0.1px 1px #888;
+    margin: 15px
+}
+
+.map-detail {
+    display: inline-grid;
+    vertical-align: bottom;
+}

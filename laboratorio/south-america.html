@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="src/css/styles.css">
+<style>
+
+body {
+  font: 12px sans-serif;
+}
+
+path {
+  stroke-width: 1px;
+  stroke: white;
+  fill: #b2b2b2;
+  cursor: pointer;
+}
+
+.map:hover, path.highlighted {
+  fill: #275ed1;
+}
+
+div.tooltip {
+  position: absolute;
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  font-weight: bold;
+  padding: 4px 8px;
+  display: none;
+}
+
+.line { 
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+#d3pie {
+  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  width: 600px;
+  height: 285px;
+  /*position: relative;*/
+}
+
+path.slice{
+  stroke-width:2px;
+}
+
+polyline{
+  opacity: .3;
+  stroke: black;
+  stroke-width: 2px;
+  fill: none;
+}
+
+</style>
+<body>
+<div class="main-content">
+  <div class="d3-graph" id="d3map"></div>
+  <div class="map-detail">
+    <div class="d3-graph" id="d3line"></div>
+    <div class="d3-graph" id="d3pie"></div>
+  </div>
+</div>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="src/js/map.js"></script>
+<script src="src/js/line.js"></script>
+<script src="src/js/pie.js"></script>
+<button class="randomize">randomize</button>
