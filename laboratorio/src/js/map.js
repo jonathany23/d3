@@ -1,45 +1,47 @@
 var countryName = "Ecuador";
 
-//Map dimensions (in pixels)
+//Definicion de dimensiones para el mapa en Pxeles
 var width = 400,
     height = 600;
 
-//Map projection
+//Proyeccion para el mapa
 var projection = d3.geo.mercator()
     .scale(400.20355310639263)
-    .center([-63.115436566301206,-26.26930158426038]) //projection center
-    .translate([width/2,height/2]) //translate to center the map in view
+    .center([-63.115436566301206,-26.26930158426038]) //Define el centro de la proyeccion
+    .translate([width/2,height/2]) //Ubicar el centro del mapa
 
-//Generate paths based on projection
+//Generar rutas basado en la proyeccion
 var path = d3.geo.path()
     .projection(projection);
 
-//Create an SVG
+//Crear SVG para el Mapa
 var svg = d3.select("#d3map").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-//Group for the map features
+//dentro del SVG crear un grupo y asignarle la clase features
 var features = svg.append("g")
     .attr("class","features");
 
-//Create zoom/pan listener
+//Configuraciones para el zoom del mapa
 //Change [1,Infinity] to adjust the min/max zoom scale
 var zoom = d3.behavior.zoom()
-    .scaleExtent([1, Infinity])
+    .scaleExtent([1, 1])
     .on("zoom",zoomed);
 
 svg.call(zoom);
 
-//Create a tooltip, hidden at the start
+//Crear los elementos necesarios para el tooltip que mostrara el mobre del pais, Oculto inicialmente
 var tooltip = d3.select("#d3map").append("div").attr("class","tooltip");
 
+//cargar los datos del archivo .toposon
 d3.json("src/data/south-america.topojson",function(error,geodata) {
   if (error) return console.log(error); //unknown error, check the console
 
   //Create a path for each map feature in the data
+  //Crear y definir cada uno de los paises con sus caracteristicas especificados en el archivo .topposon
   features.selectAll("path")
-    .data(topojson.feature(geodata,geodata.objects.continent_South_America_subunits).features) //generate features from TopoJSON
+    .data(topojson.feature(geodata,geodata.objects.continent_South_America_subunits).features) //generar las caracteristicas dese el TopoJSON
     .enter()
     .append("path")
     .attr("class", "map")
@@ -58,17 +60,17 @@ function clicked(d,i) {
 }
 
 
-//Update map on zoom/pan
+//Actualizar mapa cuando se realize zoom
 function zoomed() {
   features.attr("transform", "translate(" + zoom.translate() + ")scale(" + zoom.scale() + ")")
       .selectAll("path").style("stroke-width", 1 / zoom.scale() + "px" );
 }
 
 
-//Position of the tooltip relative to the cursor
+//Posicion del tol tip relativo al cursor
 var tooltipOffset = {x: 5, y: -25};
 
-//Create a tooltip, hidden at the start
+//Crear tooltip, Inicialmente Oculto
 function showTooltip(d) {
   moveTooltip();
   countryName = d.properties.geounit;
@@ -78,13 +80,13 @@ function showTooltip(d) {
       .text(d.properties.geounit);
 }
 
-//Move the tooltip to track the mouse
+//Mover el tooltip para seguir al mouse
 function moveTooltip() {
   tooltip.style("top",(d3.event.pageY+tooltipOffset.y)+"px")
       .style("left",(d3.event.pageX+tooltipOffset.x)+"px");
 }
 
-//Create a tooltip, hidden at the start
+//Crear tooltip, Inicialmente Oculto
 function hideTooltip() {
   tooltip.style("display","none");
 }

@@ -1,9 +1,11 @@
+//Crear elementos SVG
 var svg = d3.select("#d3pie")
 	.append("svg")
 	.attr("width", "100%")
     .attr("height", "100%")
 	.append("g")
 
+//Definir caracteristicas iniciales del SVG
 svg.append("g")
 	.attr("class", "slices");
 svg.append("g")
@@ -11,27 +13,34 @@ svg.append("g")
 svg.append("g")
 	.attr("class", "lines");
 
+//Tamaño del grafico
 var width = 600,
     height = 255,
 	radius = Math.min(width, height) / 2;
 
+//Crear el grafico de tipo tarta (Pie)
 var pie = d3.layout.pie()
 	.sort(null)
 	.value(function(d) {
 		return d.value;
 	});
 
+//Definir el radio del arco de entrada
 var arc = d3.svg.arc()
 	.outerRadius(radius * 0.8)
 	.innerRadius(radius * 0.4);
 
+//Definir el radio del arco de salida
 var outerArc = d3.svg.arc()
 	.innerRadius(radius * 0.9)
 	.outerRadius(radius * 0.9);
 
+//Establecer las dimensiones al SVG
 svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
+//Obtener las etiquetas 
 var key = function(d){ return d.data.label; };
+
 
 var color;
 
@@ -42,48 +51,49 @@ var color;
 		return d.date;
 	});*/
 
-	console.log(arrDate);
 
-	function randomData (){
-		color = d3.scale.ordinal()
-		.domain(arrDate)
-		//.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
-		.range(["#f5967f", "#e6243c"]);
+//Cargar los datos provenientes de acuerdo al pais seleccionado
+function randomData (){
+	//Definir el dominio y el rango de colores que se visualizaran en el grafico de tarta
+	color = d3.scale.ordinal()
+	.domain(arrDate)
+	//.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+	.range(["#f5967f", "#e6243c"]);
 
-		var labels = color.domain();
-		return labels.map(function(label){
-			//console.log(getValue(label));
-			return { label: label, value: getValue(label)}
-		});
-
-	}
-
-	function getValue(labelsd){
-		var resultValue
-		arrAllData.some(function(d){
-			//console.log("1: "+d.date.getFullYear());
-			//console.log("2: "+new Date("2013").getFullYear()+1);
-			if (d.date.getFullYear() == labelsd) {
-				resultValue = d.value
-				return d.value;
-			}
-		});
-		return resultValue;
-	}
-
-	change(randomData());
-//});
-
-d3.select(".randomize")
-	.on("click", function(){
-		change(randomData());
+	//Enviar las etiquetas y el valor a visualizar
+	var labels = color.domain();
+	return labels.map(function(label){
+		return { label: label, value: getValue(label)}
 	});
 
+}
 
+//Obtener el valor que corresponde a cada etiqueta
+function getValue(labelsd){
+	var resultValue
+	arrAllData.some(function(d){
+		if (d.date.getFullYear() == labelsd) {
+			resultValue = d.value
+			return d.value;
+		}
+	});
+	return resultValue;
+}
+
+//Cargar los valores y visualizar
+change(randomData());
+
+/*d3.select(".randomize")
+	.on("click", function(){
+		change(randomData());
+	});*/
+
+
+//Actualizar grafico cuando se realice cambios
 function change(data) {
-	console.log(data);
 
 	/* ------- PIE SLICES -------*/
+	
 	var slice = svg.select(".slices").selectAll("path.slice")
 		.data(pie(data), key);
 
