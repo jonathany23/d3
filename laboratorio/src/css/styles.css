@@ -19,3 +19,22 @@ body{
     display: inline-grid;
     vertical-align: bottom;
 }
+
+.d3-txt-bold {
+    font-weight: bold;
+}
+
+.d3-txt {
+    padding: 0 1rem 0 1rem;
+    text-align: justify;
+}
+
+.goal {
+    display: block;
+    height: 2px;
+    border: 0;
+    /*border-top: 2px solid #FF0000;*/
+    border-top: 2px solid #e6243c;
+    margin: 1em 0;
+    padding: 0;
+}

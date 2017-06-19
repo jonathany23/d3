@@ -64,10 +64,23 @@ polyline{
 </style>
 <body>
 <div class="main-content">
-  <div class="d3-graph" id="d3map"></div>
+<div class="d3-graph">
+  <h1 class="d3-txt">Objetivo 1: Poner fin a la pobreza en todas sus formas en todo el mundo</h1>
+  <hr class="goal"></hr>
+  <p class="d3-txt">En  septiembre  de  2015  en  la  cumbre  histórica  de  las  Naciones  Unidas  los  dirigentes  mundiales firmaron un acuerdo para la creación de <a href="http://www.un.org/sustainabledevelopment/es/objetivos-de-desarrollo-sostenible/">17 Objetivos de Desarrollo Sostenible (ODS)</a> en los cuales los  países  intensificaran  esfuerzos  para  erradicar  la  pobreza  en todas  sus  formas,reducir  la desigualdad y luchar contra el cambio climático, estos ODS están en vigencia desde el 1 de enero de 2016.</p>
+  <h2 class="d3-txt">Para 2030, erradicar la pobreza extrema para todas las personas en el mundo, actualmente medida por un ingreso por persona inferior a 1,90 dólares al día.</h2>
+  <p class="d3-txt">Los índices de pobreza extrema se han reducido a la mitad desde 1990. Si bien se trata de un logro notable, 1 de cada 5 personas de las regiones en desarrollo aún vive con menos de 1,90 dólares al día, y hay muchos más millones de personas que ganan poco más de esa cantidad diaria, a lo que se añade que hay muchas personas en riesgo de recaer en la pobreza.</p>
+</div>
+  <div class="d3-graph" id="d3map">
+    <p class="d3-txt d3-txt-bold">Mapa Sudamerica</p>
+  </div>
   <div class="map-detail">
-    <div class="d3-graph" id="d3line"></div>
-    <div class="d3-graph" id="d3pie"></div>
+    <div class="d3-graph" id="d3line">
+      <p class="d3-txt d3-txt-bold">Porcentaje de poblacion que vive con menos de $1.90</p>
+    </div>
+    <div class="d3-graph" id="d3pie">
+      <p class="d3-txt d3-txt-bold">Porcentaje de poblacion que vive con menos de $1.90</p>
+    </div>
   </div>
 </div>
 <script src="https://d3js.org/d3.v3.min.js"></script>
@@ -75,4 +88,3 @@ polyline{
 <script src="src/js/map.js"></script>
 <script src="src/js/line.js"></script>
 <script src="src/js/pie.js"></script>
-<button class="randomize">randomize</button>
